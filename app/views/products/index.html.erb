@@ -1,0 +1,20 @@
+  
+<div class="mx-auto h-screen w-full bg-blue-700">
+  <div class="flex flex-col items-center justify-center h-full">
+    <h1 class="text-4xl text-white">Welcome to Ror Store</h1>
+    <p class="text-white">The best place to buy Ruby on Rails merchandise</p>
+    <%= link_to 'New Product', new_product_path, class: "bg-white px-4 py-2 rounded text-blue-700" %>
+    <div class="mt-8">
+      <% @products.each do |p| %>
+        <div class="bg-white p-4 rounded mb-4">
+          <div class="m-4">
+            <h2 class="text-2xl text-blue-700"><%= p.name %></h2>
+          </div>
+          <%= link_to 'Show', product_path(p), class: "bg-blue-700 px-4 py-2 rounded text-white" %>
+          <%= link_to 'Edit', edit_product_path(p), class: "bg-blue-700 px-4 py-2 rounded text-white" %>
+          <%= link_to 'Destroy', product_path(p), method: :delete, data: { confirm: 'Are you sure?' }, class: "bg-blue-700 px-4 py-2 rounded text-white" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
