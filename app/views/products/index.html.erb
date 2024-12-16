@@ -1,18 +1,26 @@
-  
 <div class="mx-auto h-screen w-full bg-blue-700">
   <div class="flex flex-col items-center justify-center h-full">
-    <h1 class="text-4xl text-white">Welcome to Ror Store</h1>
-    <p class="text-white">The best place to buy Ruby on Rails merchandise</p>
-    <%= link_to 'New Product', new_product_path, class: "bg-white px-4 py-2 rounded text-blue-700" %>
+    <h1 class="text-2xl md:text-4xl text-white">Welcome to Ror Store</h1>
+    <div class="flex justify-center w-full text-center rounded p-4 mt-4">
+      <p class="text-white text-md md:text-2xl">The best place to buy Ruby on Rails merchandise</p>
+    </div>
+    <%= link_to 'New Product', new_product_path if authenticated? %>
     <div class="mt-8">
       <% @products.each do |p| %>
         <div class="bg-white p-4 rounded mb-4">
           <div class="m-4">
             <h2 class="text-2xl text-blue-700"><%= p.name %></h2>
           </div>
-          <%= link_to 'Show', product_path(p), class: "bg-blue-700 px-4 py-2 rounded text-white" %>
-          <%= link_to 'Edit', edit_product_path(p), class: "bg-blue-700 px-4 py-2 rounded text-white" %>
-          <%= link_to 'Destroy', product_path(p), method: :delete, data: { confirm: 'Are you sure?' }, class: "bg-blue-700 px-4 py-2 rounded text-white" %>
+          <% unless authenticated? %>
+            <%= link_to 'Show', "product_path(p)", class: "bg-blue-700 px-4 py-2 rounded text-white cursor-not-allowed opacity-50", onclick: "return false;" %>
+            <%= link_to 'Edit', '#', class: "bg-blue-700 px-4 py-2 rounded text-white cursor-not-allowed opacity-50", onclick: "return false;" %>
+            <%= link_to 'Show', '#', class: "bg-blue-700 px-4 py-2 rounded text-white cursor-not-allowed opacity-50", onclick: "return false;" %>
+          <% end %>
+          <% if authenticated? %>
+            <%= link_to 'Show', product_path(p), class: "bg-blue-700 px-4 py-2 rounded text-white" %>
+            <%= link_to 'Edit', edit_product_path(p), class: "bg-blue-700 px-4 py-2 rounded text-white" %>
+            <%= link_to 'Destroy', product_path(p), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "bg-blue-700 px-4 py-2 rounded text-white" %>
+          <% end %>
         </div>
       <% end %>
     </div>
