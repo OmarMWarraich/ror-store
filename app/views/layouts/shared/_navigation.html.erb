@@ -1,0 +1,10 @@
+<nav class="bg-gray-800 p-4">
+  <ul class="flex justify-between">
+    <%= link_to 'Home', root_path, class: "text-white hover:text-gray-400" %>
+    <div>
+      <%= link_to 'Log out', session_path, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "text-white hover:text-gray-400 px-4" if authenticated? %>
+      <%= link_to 'Edit', edit_password_path(params[:token] || 'default_token'), class: "text-white hover:text-gray-400 px-4" if authenticated? %>
+    </div>
+    <%= link_to 'Log in', new_session_path, class: "text-white hover:text-gray-400" unless authenticated? %>
+  </ul>
+</nav>
