@@ -20,6 +20,10 @@
         <%= form.rich_text_area :description, class: "w-full" %>
       </div>
     </div>
+    <div class="md:flex flex-col items-center w-full">
+      <%= form.label :featured_image, style: "display: block" %>
+      <%= form.file_field :featured_image, accept: "image/*" %>
+    </div>
     <div class="flex items-center justify-center">
       <%= form.submit class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
     </div>
