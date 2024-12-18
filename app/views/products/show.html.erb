@@ -1,5 +1,7 @@
 <div class="flex justify-center">
-  <h1 class="text-2xl font-bold mb-4 p-6"><%= @product.name %></h1>
+  <% cache @product do %>
+    <h1 class="text-2xl font-bold mb-4 p-6"><%= @product.name %></h1>
+  <% end %>
 </div>
 <%= render 'form', product: @product %>
 <div class="mt-4 flex justify-center">
