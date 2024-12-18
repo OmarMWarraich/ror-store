@@ -1,9 +1,12 @@
 class ProductsController < ApplicationController
   allow_unauthenticated_access only: [ :index, :show ]
   before_action :set_product, only: [ :show, :edit, :update, :destroy ]
+
   def index
     @products = Product.all.order(id: :asc)
-    @user_name = current_user.email_address.split("@").first.capitalize
+    if authenticated?
+      @user_name = current_user.email_address.split("@").first.capitalize
+    end
   end
 
   def show
@@ -41,12 +44,14 @@ class ProductsController < ApplicationController
     redirect_to products_path
   end
 
+
   private
     def set_product
       @product = Product.find(params[:id])
     end
 
+
     def product_params
-      params.expect(product: [ :name ])
+      params.require(:product).permit(:name, :description, :price, :user_id)
     end
 end
