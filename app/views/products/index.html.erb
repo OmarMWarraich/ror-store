@@ -12,17 +12,28 @@
       <% @products.each do |p| %>
         <div class="bg-white p-4 rounded mb-4">
           <div class="m-4">
-            <h2 class="text-2xl text-blue-700"><%= p.name %></h2>
+            <div class="flex justify-between items-center">
+              <h2 class="text-2xl text-blue-700"><%= p.name %></h2>
+              <p class="text-md text-gray-700"><%= p.price %></p>
+            </div>
+            <div class="text-center">
+              <p class="text-md text-gray-700"><%= p.description %></p>
+            </div>
           </div>
-          <% unless authenticated? %>
-            <%= link_to 'Show', "product_path(p)", class: "bg-blue-700 px-4 py-2 rounded text-white cursor-not-allowed opacity-50", onclick: "return false;" %>
-            <%= link_to 'Edit', '#', class: "bg-blue-700 px-4 py-2 rounded text-white cursor-not-allowed opacity-50", onclick: "return false;" %>
-            <%= link_to 'Show', '#', class: "bg-blue-700 px-4 py-2 rounded text-white cursor-not-allowed opacity-50", onclick: "return false;" %>
-          <% end %>
+          <%= link_to 'Show', product_path(p), class: "bg-blue-700 px-4 py-2 rounded text-white" %>
           <% if authenticated? %>
-            <%= link_to 'Show', product_path(p), class: "bg-blue-700 px-4 py-2 rounded text-white" %>
-            <%= link_to 'Edit', edit_product_path(p), class: "bg-blue-700 px-4 py-2 rounded text-white" %>
-            <%= link_to 'Destroy', product_path(p), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "bg-blue-700 px-4 py-2 rounded text-white" %>
+            <% unless Session.first.user_id == p.user_id%>
+              <%= link_to 'Edit', '#', class: "bg-blue-700 px-4 py-2 rounded text-white cursor-not-allowed opacity-50", onclick: "return false;" %>
+              <%= link_to 'Destroy', '#', class: "bg-blue-700 px-4 py-2 rounded text-white cursor-not-allowed opacity-50", onclick: "return false;" %>
+            <% end %>
+            <% if Session.first.user_id == p.user_id %>
+              <%= link_to 'Edit', edit_product_path(p), class: "bg-blue-700 px-4 py-2 rounded text-white" %>
+              <%= link_to 'Destroy', product_path(p), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "bg-blue-700 px-4 py-2 rounded text-white" %>
+            <% end %>
+          <% end %>
+          <% unless authenticated? %>
+            <%= link_to 'Edit', '#', class: "bg-blue-700 px-4 py-2 rounded text-white cursor-not-allowed opacity-50", onclick: "return false;" %>
+            <%= link_to 'Destroy', '#', class: "bg-blue-700 px-4 py-2 rounded text-white cursor-not-allowed opacity-50", onclick: "return false;" %>
           <% end %>
         </div>
       <% end %>
