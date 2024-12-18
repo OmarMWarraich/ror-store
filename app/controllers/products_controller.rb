@@ -3,7 +3,9 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [ :show, :edit, :update, :destroy ]
   def index
     @products = Product.all.order(id: :asc)
-    @user_name = current_user.email_address.split("@").first.capitalize
+    if Current.session
+      @user_name = current_user.email_address.split("@").first.capitalize
+    end
   end
 
   def show

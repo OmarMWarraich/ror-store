@@ -5,7 +5,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session, if: -> { request.format.json? }
 
   def user_session_id
-    Session.first.user_id
+    if Current.session
+      Session.first.user_id
+    end
   end
 
   def current_user
