@@ -5,6 +5,7 @@
     <h1 class="text-2xl font-bold mb-4 p-6"><%= @product.description %></h1>
     <h1 class="text-2xl font-bold mb-4 p-6"><%= @product.price %></h1>
   <% end %>
+  <%= render "inventory", product: @product %>
 </div>
 <div>
   <%= image_tag @product.featured_image if @product.featured_image.attached? %>
