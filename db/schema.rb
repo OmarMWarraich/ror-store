@@ -58,7 +58,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_26_123408) do
     t.datetime "updated_at", null: false
     t.float "price", default: 0.0, null: false
     t.text "description"
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.integer "inventory_count"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
