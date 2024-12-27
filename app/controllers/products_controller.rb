@@ -50,8 +50,7 @@ class ProductsController < ApplicationController
       @product = Product.find(params[:id])
     end
 
-
     def product_params
-      params.require(:product).permit(:name, :description, :price, :user_id, :featured_image, :inventory_count)
+      params.require(:product).permit(:name, :description, :price, :user_id, :featured_image)
     end
 end
